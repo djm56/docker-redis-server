@@ -14,20 +14,20 @@ services:
         # Add the custom redis.conf file if needed.    
         command: ["redis-server", "--appendonly", "yes", "requirepass", "change-this", "--maxmemory", "256mb", "--maxmemory-policy"]
 
-        # redis-commander:
-            
-        #     image: rediscommander/redis-commander:latest
+    # redis-commander:
+        
+    #     image: rediscommander/redis-commander:latest
 
-        #     ports:
-        #         - 8081:8081
-            
-        #     environment:
-        #       - REDIS_HOSTS=local:redis:6379
-        #       - HTTP_USER=redis-user
-        #       - HTTP_PASSWORD=change-this
-            
-        #     depends_on:
-        #       - redis
-            
-        volumes:
-          data:
+    #     ports:
+    #         - 8081:8081
+        
+    #     environment:
+    #       - REDIS_HOSTS=local:redis:6379
+    #       - HTTP_USER=redis-user
+    #       - HTTP_PASSWORD=change-this
+        
+    #     depends_on:
+    #       - redis
+        
+    volumes:
+        data:
