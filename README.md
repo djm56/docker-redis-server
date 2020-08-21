@@ -18,3 +18,7 @@ docker-compose down
 **Notes**
 
 You may have to run the commands as sudo user.
+
+## Standard Install
+
+If you would like to do a standard Linux Install I have created a best practice file above.
