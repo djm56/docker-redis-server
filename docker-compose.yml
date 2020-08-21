@@ -1,0 +1,15 @@
+version: "3.7"
+
+services: 
+
+    redis:
+        image: redis:latest
+        ports:
+            - 6379:6379
+
+        volumes:
+            - ./data:/data
+            # - ./redis.conf:/usr/local/etc/redis/redis.conf
+        
+        # Add the custom redis.conf file if needed.    
+        command: ["redis-server", "--appendonly", "yes", "requirepass", "change-this", "--maxmemory", "256mb", "--maxmemory-policy"]
