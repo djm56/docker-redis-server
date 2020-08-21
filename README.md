@@ -2,7 +2,10 @@
 Redis Server With Docker, this install was done on Ubuntu Server 18.0.4 LTS
 
 Intsall Docker
+https://docs.docker.com/engine/install/
+
 Install docker-compose
+https://docs.docker.com/compose/install/
 
 **Starting Server**
 
