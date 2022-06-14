@@ -24,7 +24,6 @@ services:
         container_name: redis_comndr
         ports:
             - 8081:8081
-        command: --redis-host redis
         restart: always
         environment:
             - HTTP_USER=redis-user
