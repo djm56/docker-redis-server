@@ -2,18 +2,22 @@ version: "3.7"
 
 services: 
     redis:
-        image: redis:latest
+        image: redis:6.2-alpine
         container_name: redis_db
         ports:
             - 6379:6379
         volumes:
             - ./data:/data
-            # - ./redis.conf:/usr/local/etc/redis/redis.conf
+            - ./redis.conf:/usr/local/etc/redis/redis.conf
         # Add the custom redis.conf file if needed.
+        # Change the password inside the conf file
         restart: always
         networks:
-            - redis_net   
-        command: ["redis-server", "--appendonly", "yes", "requirepass", "change-this", "--maxmemory", "256mb", "--maxmemory-policy"]
+            - redis_net
+        command:
+            - redis-server
+            - /usr/local/etc/redis/redis.conf 
+        #command: redis-server --appendonly yes requirepass change-this --maxmemory 256mb --maxmemory-policy
 
     redis-commander:
         image: rediscommander/redis-commander:latest
@@ -30,9 +34,9 @@ services:
         networks:
             - redis_net
         
-    volumes:
-        data:
-            driver: local
-    networks:
-        redis_net:
-            driver: bridge
+volumes:
+    data:
+        driver: local
+networks:
+    redis_net:
+        driver: bridge
