@@ -1,33 +1,38 @@
 version: "3.7"
 
 services: 
-
     redis:
         image: redis:latest
+        container_name: redis_db
         ports:
             - 6379:6379
-
         volumes:
             - ./data:/data
             # - ./redis.conf:/usr/local/etc/redis/redis.conf
-        
-        # Add the custom redis.conf file if needed.    
+        # Add the custom redis.conf file if needed.
+        restart: always
+        networks:
+            - redis_net   
         command: ["redis-server", "--appendonly", "yes", "requirepass", "change-this", "--maxmemory", "256mb", "--maxmemory-policy"]
 
-    # redis-commander:
-        
-    #     image: rediscommander/redis-commander:latest
-
-    #     ports:
-    #         - 8081:8081
-        
-    #     environment:
-    #       - REDIS_HOSTS=local:redis:6379
-    #       - HTTP_USER=redis-user
-    #       - HTTP_PASSWORD=change-this
-        
-    #     depends_on:
-    #       - redis
+    redis-commander:
+        image: rediscommander/redis-commander:latest
+        container_name: redis_comndr
+        ports:
+            - 8081:8081
+        command: --redis-host redis
+        restart: always
+        environment:
+            - HTTP_USER=redis-user
+            - HTTP_PASSWORD=change-this
+        depends_on:
+            - redis
+        networks:
+            - redis_net
         
     volumes:
         data:
+            driver: local
+    networks:
+        redis_net:
+            driver: bridge
